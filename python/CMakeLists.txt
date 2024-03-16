@@ -20,7 +20,7 @@ set_target_properties(_mcnptools_wrap PROPERTIES
 )
 
 file(COPY mcnptools DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-file(COPY mcnptools_tests DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY tests DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_custom_target(pybuild
   COMMAND ${Python_EXECUTABLE} setup$<CONFIG>.py build_ext
