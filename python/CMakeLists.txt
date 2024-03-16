@@ -1,8 +1,3 @@
-configure_file(
-  setup.py.in
-  setup.py_configure
-  @ONLY
-)
 
 find_package(Python COMPONENTS Development Interpreter REQUIRED)
 
@@ -23,18 +18,14 @@ file(COPY mcnptools DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY tests DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_custom_target(pybuild
-  COMMAND ${Python_EXECUTABLE} setup$<CONFIG>.py build_ext
+  COMMAND ${Python_EXECUTABLE} -m build
 )
 
 add_custom_target(pytest
-  COMMAND ${Python_EXECUTABLE} setup$<CONFIG>.py test
+  COMMAND ${Python_EXECUTABLE} -m pytest
   DEPENDS _mcnptools_wrap
 )
 
-file(GENERATE 
-     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/setup$<CONFIG>.py
-     INPUT ${CMAKE_CURRENT_BINARY_DIR}/setup.py_configure
-)
 
 if( WIN32 )
   add_custom_command(TARGET _mcnptools_wrap
