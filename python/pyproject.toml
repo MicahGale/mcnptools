@@ -22,3 +22,8 @@ Repository = "https://github.com/lanl/mcnptools.git"
 
 [build-system]
 requires = ["setuptools", "swig"]
+
+
+[tool.setuptools.packages.find]
+include = ["mcnptools*"]
+exclude = ["CMakeFiles*"]
