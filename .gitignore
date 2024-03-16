@@ -1,3 +1,33 @@
+# ignore extensionless
+*
+!/**/
+!*.*
+
 *~
 *.bak
 *.sw?
+
+#autogen Cmake
+CMakeFiles
+*.cmake
+CMakeCache.txt
+Makefile
+*.tcl
+
+#compile results
+*.a
+*.so
+*.hpp
+
+#python
+python/build
+python/dist
+python/*.egg-info
+__pycache__
+
+
+# testing
+*.vts*
+Testing
+generated
+libmcnptools/tests/ptrack_hdf5/tests/
