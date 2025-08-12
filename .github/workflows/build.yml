@@ -21,8 +21,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install ubuntu dependencies
         run: |
-          sudo apt update
-          apt install build-essential cmake libhdf5-dev libtiff-dev
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake libhdf5-dev libtiff-dev
       - name: Configure Cmake and build
         run: | 
           cmake  -D mcnptools.python_install=User .
