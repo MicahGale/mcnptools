@@ -67,7 +67,7 @@ jobs:
           brew install libtiff
       - name: Configure Cmake and build
         run: | 
-          cmake  -D mcnptools.python_install=User .
+          cmake  -D mcnptools.python_install=User -Wno-dev .
           cmake --build . --config Release
       - name: Test C++ side
         run: ctest --build-config Release
