@@ -47,3 +47,47 @@ jobs:
         with: 
            name: linux_source
            path: python/dist/*.gz
+  
+  build_mac:
+    runs-on: macos-latest
+    build_type: "Release"
+    cc: "clang"
+    cxx: "clang++"
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up python  ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with: 
+          python-version: ${{ matrix.python-version }}
+      - name: Install ubuntu dependencies
+        run: |
+          sudo apt-get update
+          sudo brew install -y cmake hdf5 libtiff
+      - name: Configure Cmake and build
+        run: | 
+          cmake  -D mcnptools.python_install=User .
+          cmake --build . --config Release
+      - name: Test C++ side
+        run: ctest --build-config Release
+      - name: build wheel
+        run: |
+          cd python
+          pip install build
+          python -m build .
+      - name: test install wheel
+        run: pip install python/dist/*.whl
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with: 
+           name: wheel-mac-${{ matrix.python-version }}
+           path: python/dist/*.whl
+      - name: Upload Source tar bal
+        uses: actions/upload-artifact@v4
+        if: ${{ matrix.python-version == '3.12'}}
+        with: 
+           name: mac_source
+           path: python/dist/*.gz
