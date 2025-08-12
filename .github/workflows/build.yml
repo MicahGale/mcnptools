@@ -46,4 +46,4 @@ jobs:
         if: ${{ matrix.python-version == '3.12'}}
         with: 
            name: linux_source
-           path: dist/*.gz
+           path: python/dist/*.gz
