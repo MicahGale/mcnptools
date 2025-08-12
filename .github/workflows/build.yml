@@ -62,7 +62,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install ubuntu dependencies
         run: |
-          sudo apt-get update
           sudo brew install -y cmake hdf5 libtiff
       - name: Configure Cmake and build
         run: | 
