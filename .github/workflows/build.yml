@@ -1,0 +1,43 @@
+name: CI Wheel building test
+
+on: 
+  pull_request:
+    branches: [main, develop]
+  push: 
+     branches: [main, develop, ci_build]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up python  ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with: 
+          python-version: ${{ matrix.python-version }}
+      - name: Install ubuntu dependencies
+        run: |
+          sudo apt update
+          apt install build-essential cmake libhdf5-dev libtiff-dev
+      - name: Configure Cmake and build
+        run: | 
+          cmake  -D mcnptools.python_install=User .
+          cmake --build . --config Release
+      - name: Test C++ side
+        run: ctest --build-config Release
+      - name: build wheel
+        run: |
+          cd python
+          pip install build
+          python -m build .
+      - name: test install wheel
+        run: pip install dist/*.whl
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with: 
+           name: build
+           path: dist/*

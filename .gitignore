@@ -1,3 +1,40 @@
 *~
 *.bak
 *.sw?
+
+# cmake artifacts
+CMakeCache.txt
+CMakeFiles/
+CTestTestfile.cmake
+*.tcl
+Makefile
+*.cmake
+*.a
+*.so
+*.unix
+
+# testing artifacts
+Testing/
+git-submodule-packages/
+lib/
+libmcnptools/tests/
+*.vts
+
+
+# python build artifacts
+python/build
+python/dist
+python/setup.py
+python/setup.py_configure
+python/mcnptools.egg-info
+
+# Build executables
+libmcnptools/include/mcnptools/MCNPTools_Config.hpp
+utils/l3d2vtk/l3d2vtk
+utils/l3dcoarsen/l3dcoarsen
+utils/l3dinfo/l3dinfo
+utils/l3dscale/l3dscale
+utils/mctal2rad/mctal2rad
+utils/mergemctals/mergemctals
+utils/mergemeshtals/mergemeshtals
+utils/meshtal2vtk/meshtal2vtk
