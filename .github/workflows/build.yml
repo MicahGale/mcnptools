@@ -62,7 +62,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install ubuntu dependencies
         run: |
-          brew install -y cmake hdf5 libtiff
+          brew install cmake 
+          brew install hdf5 
+          brew install libtiff
       - name: Configure Cmake and build
         run: | 
           cmake  -D mcnptools.python_install=User .
