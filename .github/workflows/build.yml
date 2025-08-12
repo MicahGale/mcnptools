@@ -39,5 +39,11 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with: 
-           name: build-${{ matrix.python-version }}
-           path: python/dist/*
+           name: wheel-linux-${{ matrix.python-version }}
+           path: python/dist/*.whl
+      - name: Upload Source tar bal
+        uses: actions/upload-artifact@v4
+        if: ${{ matrix.python-version == '3.12'}}
+        with: 
+           name: linux_source
+           path: dist/*.gz
